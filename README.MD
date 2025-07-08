@@ -118,7 +118,7 @@ composer commit
 
 Access the API spec:
 
-🌐 [http://localhost:8080/api_specification/inventory](http://localhost:8080/api_specification/inventory)
+🌐 [http://localhost:8080/api_specification/inventory/inventory.yaml](http://localhost:8080/api_specification/inventory/inventory.yaml)
 
 ---
 

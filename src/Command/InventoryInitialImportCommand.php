@@ -16,7 +16,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
- * Example : bin/console app:import:inventory
+ * Example : bin/console app:import:inventory.
  */
 #[AsCommand('app:import:inventory', 'Import inventory')]
 class InventoryInitialImportCommand extends AbstractConfigCommand
