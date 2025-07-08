@@ -1,0 +1,126 @@
+openapi: 3.1.0
+info:
+    title: RoadSurfer Challenge Api Documentation
+    description: Api Documentation Inventory
+    version: 1.0.0
+servers:
+    -   url: 'https://localhost:8080'
+
+paths:
+    /inventory/list:
+        get:
+            summary: List inventory items by category and unit
+            operationId: inventory_list
+            parameters:
+                -   name: unit
+                    in: query
+                    required: false
+                    description: Unit of weight (kg or grams)
+                    schema:
+                        type: string
+                        enum: [ kg, grams ]
+            requestBody:
+                required: false
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                category:
+                                    type: string
+                                    enum: [ fruit, vegetable ]
+                                name:
+                                    type: string
+            responses:
+                '200':
+                    description: Successful inventory listing
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    collections:
+                                        type: object
+                                        properties:
+                                            fruits:
+                                                type: object
+                                                additionalProperties:
+                                                    $ref: '#/components/schemas/Item'
+                                            vegetables:
+                                                type: object
+                                                additionalProperties:
+                                                    $ref: '#/components/schemas/Item'
+                            example:
+                                collections:
+                                    fruits:
+                                            "id": 1
+                                            name: Apple
+                                            price: 3.5
+                                            weight: 0.002
+                                            unit: gram
+                                    vegetables:
+                                            "id": 4
+                                            name: Carrot
+                                            price: 1.5
+                                            weight: 1
+                                            unit: gram
+                                    totalItems: 2
+
+
+    /inventory/create:
+        post:
+            summary: Create new inventory items (bulk)
+            operationId: inventory_create
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: array
+                            items:
+                                type: object
+                                required:
+                                    - name
+                                    - category
+                                    - weight
+                                    - unit
+                                properties:
+                                    name:
+                                        type: string
+                                    category:
+                                        type: string
+                                        enum: [ fruit, vegetable ]
+                                    weight:
+                                        type: number
+                                    unit:
+                                        type: string
+                                        enum: [ g,kg ]
+            responses:
+                '200':
+                    description: Successfully created item IDs
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: integer
+                            example: [ 101, 102, 103 ]
+components:
+    schemas:
+        Item:
+            type: object
+            required:
+                - name
+                - price
+                - weight
+                - unit
+            properties:
+                name:
+                    type: string
+                price:
+                    type: number
+                weight:
+                    type: number
+                unit:
+                    type: string
+                    enum: [ kg, grams ]

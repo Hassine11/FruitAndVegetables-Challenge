@@ -1,0 +1,42 @@
+
+services:
+    php:
+        build:
+            context: .
+        container_name: roadsurfer-php
+        volumes:
+            - .:/var/www/html
+        expose:
+            - "9000"
+        depends_on:
+            - db
+        environment:
+            DATABASE_URL: "mysql://root:root@db:3306/roadsurferdb"
+
+    nginx:
+        image: nginx:alpine
+        container_name: roadsurfer-nginx
+        ports:
+            - "8080:80"
+        volumes:
+            - .:/var/www/html
+            - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+        depends_on:
+            - php
+
+    db:
+        image: mariadb:latest
+        container_name: roadsurfer-db
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: roadsurferdb
+            MYSQL_USER: root
+            MYSQL_PASSWORD: root
+        ports:
+            - "3306:3306"
+        volumes:
+            - db_data:/var/lib/mysql
+
+volumes:
+    db_data:

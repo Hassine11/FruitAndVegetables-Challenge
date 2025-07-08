@@ -62,7 +62,7 @@ docker-compose exec php php bin/console doctrine:migrations:migrate
 
 ```env
 APP_ENV=test
-APP_DEBUG=
+APP_DEBUG=1
 DATABASE_URL="mysql://username:password@db:3306/roadsurferdb_test"
 ```
 

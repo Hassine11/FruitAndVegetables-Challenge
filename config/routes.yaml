@@ -1,0 +1,16 @@
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
+
+inventory_list:
+    path: /inventory/list
+    # the controller value has the format 'controller_class::method_name'
+    controller: App\Inventory\Application\Http\ShowInventoryArticlesAction
+
+inventory_create:
+    path: /inventory/create
+    # the controller value has the format 'controller_class::method_name'
+    controller: App\Inventory\Application\Http\CreateInventoryArticlesAction
+
