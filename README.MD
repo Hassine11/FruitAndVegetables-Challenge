@@ -97,7 +97,7 @@ docker-compose exec php php bin/console app:import:inventory
 
 ---
 
-### ✅ Run Full Commit Checks
+### ✅  Run Full Commit Checks (Inside PHP Container)
 
 This command runs:
 
