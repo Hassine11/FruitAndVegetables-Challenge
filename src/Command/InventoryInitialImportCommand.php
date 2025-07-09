@@ -62,9 +62,9 @@ class InventoryInitialImportCommand extends AbstractConfigCommand
 
                 $this->inventoryRepository->storeInventoryArticle($article);
             } catch (\Exception $e) {
-                $output->writeln('<error>Error While Importing Inventory : '.$e->getMessage().'</error>');
+                $output->writeln('<comment>Could Not Import Inventory Item ! : '.$e->getMessage().'</comment>');
 
-                return Command::FAILURE;
+            //    return Command::FAILURE;
             }
         }
 
