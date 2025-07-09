@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Inventory\Application\Request\Validator;
+namespace App\Service\Request\Validator;
 
-use App\Inventory\Application\Request\Dto\InventoryRequestDto;
 use App\Inventory\Exception\Request\InvalidRequestException;
+use App\Service\Request\RequestDto;
 use Symfony\Component\HttpFoundation\Request;
 
 class PayloadKeyValidator
@@ -22,7 +22,7 @@ class PayloadKeyValidator
         $isAssoc = array_keys($input) !== range(0, count($input) - 1);
         $input = $isAssoc ? [$input] : $input;
 
-        /** @var InventoryRequestDto $dto */
+        /** @var RequestDto $dto */
         $dto = new $dtoClass();
         $dtoProperties = $dto::keys();
 

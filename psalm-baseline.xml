@@ -5,7 +5,7 @@
       <code><![CDATA[InventoryInitialImportCommand]]></code>
     </UnusedClass>
   </file>
-  <file src="src/Inventory/Application/Request/Dto/ShowInventoryArticlesRequestDTO.php">
+  <file src="src/Inventory/Application/Dto/ShowArticlesRequestDTO.php">
     <PossiblyUnusedProperty>
       <code><![CDATA[$category]]></code>
       <code><![CDATA[$name]]></code>

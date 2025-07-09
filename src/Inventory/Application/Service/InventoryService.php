@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Inventory\Application\Service;
 
-use App\Inventory\Application\Request\Dto\CreateInventoryArticlesRequestDTO;
+use App\Inventory\Application\Dto\CreateArticlesRequestDTO;
 use App\Inventory\Domain\ItemName;
 use App\Inventory\Domain\Items;
 use App\Inventory\Domain\Unit;
@@ -17,7 +17,7 @@ class InventoryService
      * this method build Items from Payload Based on Their Category
      * it uses Factory to Identify which category Item.
      *
-     * @psalm-param CreateInventoryArticlesRequestDTO[] $payload
+     * @psalm-param CreateArticlesRequestDTO[] $payload
      *
      * @psalm-return Items
      *

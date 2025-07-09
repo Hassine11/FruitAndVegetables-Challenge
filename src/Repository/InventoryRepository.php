@@ -6,6 +6,7 @@ namespace App\Repository;
 
 use App\Inventory\Domain\Item;
 use App\Inventory\Domain\ItemName;
+use App\Inventory\Exception\Item\ItemAlreadyExistException;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception;
 
@@ -55,17 +56,22 @@ class InventoryRepository
      * @psalm-param Item $item
      *
      * @throws Exception
+     * @throws ItemAlreadyExistException
      */
     public function storeInventoryArticle(Item $item): int
     {
-        $this->connection->insert(self::TABLE_NAME, [
-            'article_name' => $item->Name()->value(),
-            'category' => $item->Category()->value(),
-            'unit' => $item->Unit()->value(),
-            'quantity' => $item->Weight()->inGrams()->value(),
-        ]);
+        if (false === $this->itemExists($item->Name())) {
+            $this->connection->insert(self::TABLE_NAME, [
+                'article_name' => $item->Name()->value(),
+                'category' => $item->Category()->value(),
+                'unit' => $item->Unit()->value(),
+                'quantity' => $item->Weight()->inGrams()->value(),
+            ]);
 
-        return (int) $this->connection->lastInsertId();
+            return (int) $this->connection->lastInsertId();
+        }
+
+        throw new ItemAlreadyExistException('Item with this name '.$item->Name()->value().' already exists !');
     }
 
     /**
@@ -74,8 +80,6 @@ class InventoryRepository
      * @psalm-param ItemName $itemName
      *
      * @psalm-return bool
-     *
-     * @throws Exception
      */
     public function itemExists(ItemName $itemName): bool
     {

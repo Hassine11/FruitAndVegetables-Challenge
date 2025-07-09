@@ -87,7 +87,7 @@ it('returns filtered bad http response because of invalid query parameter value'
 it('returns filtered bad http response because of invalid payload category value', function () {
     $this->client->request(
         'GET',
-        '/inventory/list?unit=INVALID',
+        '/inventory/list?unit=g',
         [],
         [],
         ['CONTENT_TYPE' => 'application/json'],

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Inventory\Application\Request\Validator;
+namespace App\Service\Request\Validator;
 
-use App\Inventory\Application\Request\Dto\CreateInventoryArticlesRequestDTO;
-use App\Inventory\Application\Request\Dto\InventoryRequestDto;
-use App\Inventory\Application\Request\Dto\ShowInventoryArticlesRequestDTO;
+use App\Inventory\Application\Dto\CreateArticlesRequestDTO;
+use App\Inventory\Application\Dto\ShowArticlesRequestDTO;
 use App\Inventory\Domain\Unit;
 use App\Inventory\Exception\Request\InvalidRequestException;
+use App\Service\Request\RequestDto;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -28,12 +28,12 @@ readonly class RequestValidatorService
      * this method validate the request body and return DTO.
      *
      * @psalm-param Request $request
-     * @psalm-param InventoryRequestDto $inventoryRequestDto
+     * @psalm-param RequestDto $inventoryRequestDto
      *
      * @throws ExceptionInterface
      * @throws InvalidRequestException
      */
-    public function fromHttpRequest(Request $request, InventoryRequestDto $inventoryRequestDto): InventoryRequestDto|array
+    public function fromHttpRequest(Request $request, RequestDto $inventoryRequestDto): RequestDto|array
     {
         // step 1 - validate keys from request
         $this->payloadKeyValidator->assertOnlyAllowedKeys($request, $inventoryRequestDto::class);
@@ -85,22 +85,22 @@ readonly class RequestValidatorService
 
     /**
      * @psalm-param Request $request
-     * @psalm-param InventoryRequestDto $dto
+     * @psalm-param RequestDto $dto
      *
-     * @psalm-return InventoryRequestDto|array
+     * @psalm-return RequestDto|array
      *
      * @throws ExceptionInterface
      */
-    public function buildDto(Request $request, InventoryRequestDto $dto): InventoryRequestDto|array
+    public function buildDto(Request $request, RequestDto $dto): RequestDto|array
     {
-        if ($dto instanceof ShowInventoryArticlesRequestDTO) {
-            $dto = $this->serializer->deserialize($request->getContent(), ShowInventoryArticlesRequestDTO::class, 'json');
+        if ($dto instanceof ShowArticlesRequestDTO) {
+            $dto = $this->serializer->deserialize($request->getContent(), ShowArticlesRequestDTO::class, 'json');
         }
 
-        if ($dto instanceof CreateInventoryArticlesRequestDTO) {
+        if ($dto instanceof CreateArticlesRequestDTO) {
             $dto = $this->serializer->deserialize(
                 $request->getContent(),
-                CreateInventoryArticlesRequestDTO::class.'[]',
+                CreateArticlesRequestDTO::class.'[]',
                 'json'
             );
         }

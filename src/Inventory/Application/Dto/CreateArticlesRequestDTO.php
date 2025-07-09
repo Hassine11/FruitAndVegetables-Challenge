@@ -2,16 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Inventory\Application\Request\Dto;
+namespace App\Inventory\Application\Dto;
 
 use App\Inventory\Domain\Category;
 use App\Inventory\Domain\Unit;
+use App\Service\Request\RequestDto;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @psalm-immutable
  */
-final class CreateInventoryArticlesRequestDTO implements InventoryRequestDto
+final class CreateArticlesRequestDTO implements RequestDto
 {
     #[Assert\NotBlank(message: 'property name is required !')]
     #[Assert\Type(type: 'string')]
