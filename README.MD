@@ -19,8 +19,8 @@ This project is containerized using Docker 🐳 for a smooth, consistent develop
 ### 📦 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/your-repo.git
-cd your-repo
+git clone https://github.com/Hassine11/FruitAndVegetables-Challenge.git
+cd /FruitAndVegetables-Challenge
 ```
 
 ---
